@@ -8,9 +8,9 @@
 #include "vector/vec_mul.h"
 
 #define NTESTS 1000
-#define NALGO 21
+#define NALGO 23
 #define THRESHOLD 2
-#define DEBUG 0
+#define DEBUG 1
 
 
 uint32_t myabs(uint32_t a)
@@ -161,6 +161,16 @@ void cycle_meassure(){
 				fftw_nega_mul(&r,&x,&y);
 				end = rdtsc();
 				break;
+			case 21:
+			    start = rdtsc();
+				simd_nonmerge(&r,&x,&y);
+				end = rdtsc();
+				break;
+			case 22:
+			    start = rdtsc();
+				nonrec_nonmerge(&r,&x,&y);
+				end = rdtsc();
+				break;
 
 		}
 		if(DEBUG)
@@ -256,6 +266,13 @@ void cycle_meassure(){
 	    case 20:
 			printf("Twisted FFTW & %llu & %llu & %llu\\\\\n",cycles[249],cycles[499],cycles[749]);
 			break;
+	    case 21:
+			printf("Non merge & %llu & %llu & %llu\\\\\n",cycles[249],cycles[499],cycles[749]);
+			break;
+		case 22:
+			printf("Nonrec nonmerge & %llu & %llu & %llu\\\\\n",cycles[249],cycles[499],cycles[749]);
+			break;
+
 
     }
       

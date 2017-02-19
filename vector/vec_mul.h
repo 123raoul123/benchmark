@@ -21,5 +21,7 @@ void two_layer_negacyclic(ring_t *r, const ring_t *x, const ring_t *y);
 void simd_negacyclic(ring_t *r, const ring_t *x, const ring_t *y);
 void three_layer_negacyclic(ring_t *r, const ring_t *x, const ring_t *y);
 void simd_nonrec_negacyclic(ring_t *r, const ring_t *x, const ring_t *y);
+void simd_nonmerge(ring_t *r, const ring_t *x, const ring_t *y);
+void nonrec_nonmerge(ring_t *r, const ring_t *x, const ring_t *y);
 
 #endif

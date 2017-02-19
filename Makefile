@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -std=c11 -O3 -mavx2 -march=native
 LIBS=-lm -L/usr/local/lib -lfftw3
 OBJS_ZERO = zeropad_mul.o fiduccia.o split_radix_fft.o twisted_fft.o tangent_fft.o support.o twisting_mul.o
 OBJS_LUT = lut_mul.o lut_negacyclic.o lut_split_radix.o lut_tangent.o
-OBJS_VEC = vec_mul.o 2_layer_negacyclic.o sr_vector.o fftw.o sr_vec_nonrec.o simd_negacyclic.o 3_layer_negacyclic.o simd_nonrec_negacyclic.o
+OBJS_VEC = vec_mul.o 2_layer_negacyclic.o sr_vector.o fftw.o sr_vec_nonrec.o simd_negacyclic.o 3_layer_negacyclic.o simd_nonrec_negacyclic.o simd_nonmerge.o nonrec_nonmerge.o
 OBJS = $(OBJS_ZERO) $(OBJS_LUT) $(OBJS_VEC) glob_support.o
 
 output: test.o
@@ -19,7 +19,7 @@ zeropad_mul.o: test.h schoolbook/zeropad_mul.c schoolbook/zeropad_mul.h fiduccia
 twisting_mul.o: test.h schoolbook/twisting_mul.c schoolbook/twisting_mul.h fiduccia.o split_radix_fft.o twisted_fft.o tangent_fft.o support.o glob_support.o
 	$(CC) $(CFLAGS) -c schoolbook/twisting_mul.c
 
-vec_mul.o: test.h sr_vector.o fftw.o sr_vec_nonrec.o 2_layer_negacyclic.o simd_negacyclic.o 3_layer_negacyclic.o simd_nonrec_negacyclic.o
+vec_mul.o: test.h sr_vector.o fftw.o sr_vec_nonrec.o 2_layer_negacyclic.o simd_negacyclic.o 3_layer_negacyclic.o simd_nonrec_negacyclic.o simd_nonmerge.o nonrec_nonmerge.o
 	$(CC) $(CFLAGS) -c vector/vec_mul.c
 
 sr_vector.o: test.h vector/fft/sr_vector.c vector/fft/sr_vector.h
@@ -39,6 +39,12 @@ simd_nonrec_negacyclic.o: test.h vector/fft/simd_nonrec_negacyclic.c vector/fft/
 
 sr_vec_nonrec.o: test.h vector/fft/sr_vec_nonrec.c vector/fft/sr_vec_nonrec.h
 	$(CC) $(CFLAGS) -c vector/fft/sr_vec_nonrec.c
+
+simd_nonmerge.o: test.h vector/fft/simd_nonmerge.c vector/fft/simd_nonmerge.h
+	$(CC) $(CFLAGS) -c vector/fft/simd_nonmerge.c
+
+nonrec_nonmerge.o: test.h vector/fft/nonrec_nonmerge.c vector/fft/nonrec_nonmerge.h
+	$(CC) $(CFLAGS) -c vector/fft/nonrec_nonmerge.c
 
 fftw.o: test.h vector/fft/fftw.c vector/fft/fftw.h
 	$(CC) $(CFLAGS) -I/usr/local/include -c vector/fft/fftw.c
