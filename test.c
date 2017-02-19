@@ -10,7 +10,7 @@
 #define NTESTS 1000
 #define NALGO 23
 #define THRESHOLD 2
-#define DEBUG 1
+#define DEBUG 0
 
 
 uint32_t myabs(uint32_t a)
