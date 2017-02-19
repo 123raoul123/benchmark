@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "support.h"
-
+#include "../test.h"
 
 #define omg_t(N,k) (cexp(2.0 * M_PI * I * (double)k / (double) N))
 
